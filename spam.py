@@ -1,5 +1,4 @@
 import os, random
-from collections import Counter
 from nltk import word_tokenize
 from nltk.stem import WordNetLemmatizer
 from nltk.corpus import stopwords
@@ -47,27 +46,22 @@ def process_email(sentence):
 stoplist = stopwords.words('english')
 
 def create_features(text):
-    processed = process_email(text)
-    counter = Counter(processed)
-    for word, count in counter.items():
-        if not word in stoplist:
-            bag_of_words = {word: count}
-    return bag_of_words
+    return {word: True for word in process_email(text) if not word in stoplist}
 
-all_features_labels = []
-for email, label in all_emails:
-    all_features_labels.append((create_features(email), label))
-print('length of dataset = ', len(all_features_labels))
+# all_features_labels = []
+# for email, label in all_emails:
+#     all_features_labels.append((create_features(email), label))
+# print('length of dataset = ', len(all_features_labels))
 
-train_size = int(len(all_features_labels) * 0.8)
-train_set = all_features_labels[:train_size]
-test_set = all_features_labels[train_size:]
-
-clf = NaiveBayesClassifier.train(train_set)
-print('accuracy on train set = ' + str(classify.accuracy(clf, train_set)))
-print('accuracy on test set = ' + str(classify.accuracy(clf, test_set)))
-clf.show_most_informative_features(20)
-
-filename = 'model.pkl'
-with open(filename, 'wb') as f:
-    pickle.dump(clf, f)
+# train_size = int(len(all_features_labels) * 0.8)
+# train_set = all_features_labels[:train_size]
+# test_set = all_features_labels[train_size:]
+ 
+# clf = NaiveBayesClassifier.train(train_set)
+# print('accuracy on train set = ' + str(classify.accuracy(clf, train_set)))
+# print('accuracy on test set = ' + str(classify.accuracy(clf, test_set)))
+# clf.show_most_informative_features(20)
+ 
+# filename = 'model.pkl'
+# with open(filename, 'wb') as f:
+#     pickle.dump(clf, f)
