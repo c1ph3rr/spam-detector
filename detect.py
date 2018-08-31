@@ -11,5 +11,5 @@ while stat:
         stat = False
     else:
         features = spam.create_features(user_input)
-        print(features)
+        #print(features)
         print(clf.classify(features))
